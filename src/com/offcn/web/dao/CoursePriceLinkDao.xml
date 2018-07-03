@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.offcn.web.dao.CoursePriceLinkDao" >
+  <resultMap id="BaseResultMap" type="com.offcn.common.domain.course.CoursePriceLink" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="course_id" property="courseId" jdbcType="INTEGER" />
+    <result column="agreement" property="agreement" jdbcType="VARCHAR" />
+    <result column="stay" property="stay" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="written_tf" property="writtenTf" jdbcType="DECIMAL" />
+    <result column="interview_tf" property="interviewTf" jdbcType="DECIMAL" />
+    <result column="mark" property="mark" jdbcType="VARCHAR" />
+    <result column="is_closed" property="isClosed" jdbcType="INTEGER" />
+    <result column="course_suffix" property="courseSuffix" jdbcType="VARCHAR" />
+    <result column="tf_mark" property="tfMark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      id, course_id, agreement, stay, price, written_tf, interview_tf, mark, is_closed, 
+      course_suffix, tf_mark
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.offcn.common.domain.course.CoursePriceLinkQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from course_price_link
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    id,course_id,agreement,stay,price,written_tf,interview_tf,mark,is_closed,course_suffix,tf_mark
+    from course_price_link
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from course_price_link
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.offcn.common.domain.course.CoursePriceLinkQuery" >
+    delete from course_price_link
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.offcn.common.domain.course.CoursePriceLink" >
+    insert into course_price_link (id, course_id, agreement, 
+      stay, price, written_tf, 
+      interview_tf, mark, is_closed, 
+      course_suffix, tf_mark)
+    values (#{id,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{agreement,jdbcType=VARCHAR}, 
+      #{stay,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{writtenTf,jdbcType=DECIMAL}, 
+      #{interviewTf,jdbcType=DECIMAL}, #{mark,jdbcType=VARCHAR}, #{isClosed,jdbcType=INTEGER}, 
+      #{courseSuffix,jdbcType=VARCHAR}, #{tfMark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.offcn.common.domain.course.CoursePriceLink" >
+    insert into course_price_link
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="agreement != null" >
+        agreement,
+      </if>
+      <if test="stay != null" >
+        stay,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="writtenTf != null" >
+        written_tf,
+      </if>
+      <if test="interviewTf != null" >
+        interview_tf,
+      </if>
+      <if test="mark != null" >
+        mark,
+      </if>
+      <if test="isClosed != null" >
+        is_closed,
+      </if>
+      <if test="courseSuffix != null" >
+        course_suffix,
+      </if>
+      <if test="tfMark != null" >
+        tf_mark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="agreement != null" >
+        #{agreement,jdbcType=VARCHAR},
+      </if>
+      <if test="stay != null" >
+        #{stay,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="writtenTf != null" >
+        #{writtenTf,jdbcType=DECIMAL},
+      </if>
+      <if test="interviewTf != null" >
+        #{interviewTf,jdbcType=DECIMAL},
+      </if>
+      <if test="mark != null" >
+        #{mark,jdbcType=VARCHAR},
+      </if>
+      <if test="isClosed != null" >
+        #{isClosed,jdbcType=INTEGER},
+      </if>
+      <if test="courseSuffix != null" >
+        #{courseSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="tfMark != null" >
+        #{tfMark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.offcn.common.domain.course.CoursePriceLinkQuery" resultType="java.lang.Integer" >
+    select count(*) from course_price_link
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update course_price_link
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.courseId != null" >
+        course_id = #{record.courseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.agreement != null" >
+        agreement = #{record.agreement,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stay != null" >
+        stay = #{record.stay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.writtenTf != null" >
+        written_tf = #{record.writtenTf,jdbcType=DECIMAL},
+      </if>
+      <if test="record.interviewTf != null" >
+        interview_tf = #{record.interviewTf,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mark != null" >
+        mark = #{record.mark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isClosed != null" >
+        is_closed = #{record.isClosed,jdbcType=INTEGER},
+      </if>
+      <if test="record.courseSuffix != null" >
+        course_suffix = #{record.courseSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tfMark != null" >
+        tf_mark = #{record.tfMark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update course_price_link
+    set id = #{record.id,jdbcType=INTEGER},
+      course_id = #{record.courseId,jdbcType=INTEGER},
+      agreement = #{record.agreement,jdbcType=VARCHAR},
+      stay = #{record.stay,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DECIMAL},
+      written_tf = #{record.writtenTf,jdbcType=DECIMAL},
+      interview_tf = #{record.interviewTf,jdbcType=DECIMAL},
+      mark = #{record.mark,jdbcType=VARCHAR},
+      is_closed = #{record.isClosed,jdbcType=INTEGER},
+      course_suffix = #{record.courseSuffix,jdbcType=VARCHAR},
+      tf_mark = #{record.tfMark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.offcn.common.domain.course.CoursePriceLink" >
+    update course_price_link
+    <set >
+      <if test="courseId != null" >
+        course_id = #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="agreement != null" >
+        agreement = #{agreement,jdbcType=VARCHAR},
+      </if>
+      <if test="stay != null" >
+        stay = #{stay,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="writtenTf != null" >
+        written_tf = #{writtenTf,jdbcType=DECIMAL},
+      </if>
+      <if test="interviewTf != null" >
+        interview_tf = #{interviewTf,jdbcType=DECIMAL},
+      </if>
+      <if test="mark != null" >
+        mark = #{mark,jdbcType=VARCHAR},
+      </if>
+      <if test="isClosed != null" >
+        is_closed = #{isClosed,jdbcType=INTEGER},
+      </if>
+      <if test="courseSuffix != null" >
+        course_suffix = #{courseSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="tfMark != null" >
+        tf_mark = #{tfMark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.offcn.common.domain.course.CoursePriceLink" >
+    update course_price_link
+    set course_id = #{courseId,jdbcType=INTEGER},
+      agreement = #{agreement,jdbcType=VARCHAR},
+      stay = #{stay,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      written_tf = #{writtenTf,jdbcType=DECIMAL},
+      interview_tf = #{interviewTf,jdbcType=DECIMAL},
+      mark = #{mark,jdbcType=VARCHAR},
+      is_closed = #{isClosed,jdbcType=INTEGER},
+      course_suffix = #{courseSuffix,jdbcType=VARCHAR},
+      tf_mark = #{tfMark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
