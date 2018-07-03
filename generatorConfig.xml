@@ -44,15 +44,15 @@
  
 		
 		<commentGenerator type="org.mybatis.generator.plugins.comment.MyCommentGenerator">
-			<!-- 是否去除自动生成的注释 true：是 ： false:否 
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
 			<property name="suppressAllComments" value="true" />
-			-->
+			
 		</commentGenerator>
 		
 		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://localhost:3306/babasport" userId="wangdi"
-			password="wangdi007">
+			connectionURL="jdbc:mysql://47.92.81.14:3306/course_scheduling" userId="arvin"
+			password="arvin">
 		</jdbcConnection>
 		<!-- <jdbcConnection driverClass="oracle.jdbc.OracleDriver"
 			connectionURL="jdbc:oracle:thin:@127.0.0.1:1521:yycg" 
@@ -63,12 +63,12 @@
 		<!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和 
 			NUMERIC 类型解析为java.math.BigDecimal -->
 		<javaTypeResolver>
-			<property name="forceBigDecimals" value="false" />
+			<property name="forceBigDecimals" value="true" />
 		</javaTypeResolver>
 
 
 		<!-- targetProject:生成POJO类的位置 -->
-		<javaModelGenerator targetPackage="com.wangdi.bean"
+		<javaModelGenerator targetPackage="com.offcn.common.domain.course"
 			targetProject=".\src">
 			<!-- enableSubPackages:是否让schema作为包的后缀 -->
 			<property name="enableSubPackages" value="false" />
@@ -77,14 +77,14 @@
 		</javaModelGenerator>
 
         <!-- targetProject:mapper映射文件生成的位置 -->
-		<sqlMapGenerator targetPackage="com.wangdi.dao" 
+		<sqlMapGenerator targetPackage="com.offcn.web.dao" 
 			targetProject=".\src">
 			<!-- enableSubPackages:是否让schema作为包的后缀 -->
 			<property name="enableSubPackages" value="false" />
 		</sqlMapGenerator>
 		<!-- targetPackage：mapper接口生成的位置 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.wangdi.dao" 
+			targetPackage="com.offcn.web.dao" 
 			targetProject=".\src">
 			<!-- enableSubPackages:是否让schema作为包的后缀 -->
 			<property name="enableSubPackages" value="true" />
@@ -92,38 +92,9 @@
 		
 		<!-- 指定数据库表 -->
 		<!-- 用户模块表  -->
-		<table schema="" tableName="bbs_buyer" domainObjectName="user.Buyer"/>
+		<table schema="" tableName="course_price_link" domainObjectName="CoursePriceLink"/>
 		
-		<!-- 商品模块表 -->
-		<table schema="" tableName="bbs_product" domainObjectName="product.Product">
-			<!-- 商品介绍 大字段映射 -->
-			<columnOverride column="description" javaType="String" jdbcType="VARCHAR" />
-			<!-- 包装清单 大字段映射 -->
-			<columnOverride column="package_list" javaType="String" jdbcType="VARCHAR" />
-			<!-- 商品图片 大字段映射 -->
-			<columnOverride column="img_url" javaType="String" jdbcType="VARCHAR" />
-		</table>
-		<table schema="" tableName="bbs_Color" domainObjectName="product.Color"/>
-		<table schema="" tableName="bbs_sku" domainObjectName="product.Sku"/>
-		
-		<!-- 订单模块表 -->
-		<table schema="" tableName="bbs_order" domainObjectName="order.Order">
-			<!-- 支付方式 0:到付 1:在线 2:邮局 3:公司转帐 -->
-			<columnOverride column="payment_way" javaType="Integer"/>
-			<!-- 货到付款方式.1现金,2POS刷卡 -->
-			<columnOverride column="payment_cash" javaType="Integer" />
-			<!-- 送货时间 -->
-			<columnOverride column="delivery" javaType="Integer"/>
-			<!-- 支付状态 :0到付1待付款,2已付款,3待退款,4退款成功,5退款失败 -->
-			<columnOverride column="is_paiy" javaType="Integer"/>
-			<!-- 订单状态 0:提交订单 1:仓库配货 2:商品出库 3:等待收货 4:完成 5待退货 6已退货 -->
-			<columnOverride column="state" javaType="Integer"/>
-			<!-- 订单状态 默认Boolean -->
-			<columnOverride column="order_state" javaType="Integer"/>
-		</table>
-		<table schema="" tableName="bbs_detail" domainObjectName="order.Detail"/>
-		<table schema="" tableName="bbs_ad" domainObjectName="ad.Ad"/>
-		<table schema="" tableName="bbs_position" domainObjectName="ad.Position"/>
+
 		
 		<!-- 指定数据库所有表  
 		<table schema="" tableName="%"/>
